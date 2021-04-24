@@ -1,0 +1,7 @@
+h2::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(to right, $primary-content, $secondary-content);
+}

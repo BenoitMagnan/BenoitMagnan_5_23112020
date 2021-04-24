@@ -1,0 +1,12 @@
+img {
+    width: 225px;
+}
+
+
+.img-container{
+    min-height:  30vh;
+    & img {
+        min-height: 30vh;
+        object-fit: contain;
+    }
+}
