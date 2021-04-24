@@ -38,31 +38,55 @@
   </div>
   <div class="container">
     <div class="flex-row py-2 my-4 bg-primary rounded text-center ">
-        <div id="cardHolder" class="col-12">
-                <div id="nom" class="col-4"></div>
-                <div id="prix" class="col-4"></div>
-                <div id="modele" class="col-4"></div>
-                <!-- <div><input type="number" id="quantity" name="quantity" min="1" max="100" value="1"></div> -->
+        <div class="col-12">
+          <table class="table my-4">
+            <thead>
+              <h3 class="my-4">Panier</h3>
+            </thead>
+            <tbody id="productHolder">
+              <theader>
+                <th>Produit</th>
+                <th>Photo</th>
+                <th>Modèle</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Total</th>
+                <th></th>
+              </theader>
+            </tbody>
+          </table>
+        </table>
         </div>
     </div>
   </div>
   
 
   <script>
+    const productHolder = document.getElementById('productHolder');
+
     window.addEventListener('load', () => {
       let items = JSON.parse(localStorage.getItem('items'));
       
-      const newRow = document.createElement("div");
+      
       for (let item of items){
-        newRow.innerHTML += item.name + " " + item.choice +  " " + item.price/100 + "€" + " " + "<img src='" + item.imageUrl + "'>";                   
-        document.body.appendChild(newRow); 
+        productHolder.innerHTML += "<td class='align-middle'>" + item.name + "</td>"
+          + "<td class='align-middle col-2'>" + "<img class='w-75 rounded shadow'src='" + item.imageUrl + "'></td>"
+          + "<td class='align-middle'>" + item.choice + "</td>"
+          + "<td class='align-middle'>" + Math.random(00) + "</td>"
+          + "<td class='align-middle'>" + item.price / 100 + "€</td>"
+          + "<td class='align-middle'>" + item.price /100 + "€ TTC</td>"
+          + "<td class='align-middle'><button id='removeItem' class='text-danger'><i class='fas fa-trash'></i><button></td>"
+        ;
         
       }
+
+      
+
       console.log(items);
     });
 
 
-    // // const cardHolder = document.getElementById('cardHolder');
+    // // 
 
     // // const nom = document.getElementById('nom');
     // // const prix = document.getElementById('prix');
