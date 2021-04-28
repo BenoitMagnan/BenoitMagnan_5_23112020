@@ -37,7 +37,7 @@
     </div>
   </div>
   <div class="container">
-    <div class="flex-row py-2 my-4 bg-primary rounded text-center ">
+    <div class="flex-row py-2 my-4 bg-primary rounded text-center">
         <div class="col-12">
           <table class="table my-4">
             <thead>
@@ -63,43 +63,49 @@
 
   <script>
     const productHolder = document.getElementById('productHolder');
+    
+    function total (element) {
+      const price = element.parentElement.parentElement.parentElement.querySelectorAll("span")[0].innerHTML;
+      const total = element.parentElement.parentElement.parentElement.querySelectorAll("span")[1];
+      console.log(price);
+     }
+
+    
+     function removeItem(element) {
+      const itemToRemove = element.parentElement.parentElement;
+      itemToRemove.remove();
+    }
 
     window.addEventListener('load', () => {
-      let items = JSON.parse(localStorage.getItem('items'));
-      
-      
-      for (let item of items){
-        productHolder.innerHTML += "<td class='align-middle'>" + item.name + "</td>"
-          + "<td class='align-middle col-2'>" + "<img class='w-75 rounded shadow'src='" + item.imageUrl + "'></td>"
-          + "<td class='align-middle'>" + item.choice + "</td>"
-          + "<td class='align-middle'>" + Math.random(00) + "</td>"
-          + "<td class='align-middle'>" + item.price / 100 + "€</td>"
-          + "<td class='align-middle'>" + item.price /100 + "€ TTC</td>"
-          + "<td class='align-middle'><button id='removeItem' class='text-danger'><i class='fas fa-trash'></i><button></td>"
-        ;
-        
+      const items = JSON.parse(localStorage.getItem('items')); 
+
+      for(i = 0; i < items.length; i++) {
+        productHolder.innerHTML += "<tr id='" + i + "'>"
+        + "<td class='align-middle '>" + items[i].name + "</td>"
+        + "<td class='align-middle col-2'>" + "<img class='w-75 rounded shadow'src='" + items[i].imageUrl + "'></td>"
+        + "<td class='align-middle'>" + items[i].choice + "</td>"
+        + "<td class='align-middle'><form><input onChange=total(this); class='form-control w-50 mx-auto quantity' type='number' min='1' max='100' value='1'></form></td>"
+        + "<td class='align-middle'><span>" + items[i].price / 100 + "</span>€</td>"
+        + "<td class='align-middle' id='" + items[i].randomId + "'><span></span></td>"
+        + "<td class='align-middle'><button class='text-danger removeItem' onclick='removeItem(this);'><i class='fas fa-trash'></i><button></td>"
+      + "</tr>"
+      ;
+
+      const removeItem = document.getElementsByClassName('removeItem');
+
+      for (let i = 0; i < removeItem.length; i++) {
+        removeItem[i].addEventListener("click", function() {
+          let items = JSON.parse(localStorage.getItem('items'));
+          // console.log(items)
+          // console.log(items[i]);
+          items.splice(items.indexOf(items[i]), 1);
+          localStorage.setItem('items', JSON.stringify(items));
+          // console.log(localStorage);
+        });
       }
 
-      
-
-      console.log(items);
-    });
-
-
-    // // 
-
-    // // const nom = document.getElementById('nom');
-    // // const prix = document.getElementById('prix');
-    // // const modele = document.getElementById('modele');
-    
-    // // cardHolder.createElement('div') += localStorage.getItem('Nom');
-    // // prix.innerHTML += localStorage.getItem('Prix');
-    // // modele.innerHTML += localStorage.getItem('Modèle');
-    // // localStorage.clear();
-
-
-    
-
+      };
+  });
   </script>
 
 </body>
