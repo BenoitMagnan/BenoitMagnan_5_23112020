@@ -67,7 +67,7 @@
     function total (element) {
       const price = element.parentElement.parentElement.parentElement.querySelectorAll("span")[0].innerHTML;
       const total = element.parentElement.parentElement.parentElement.querySelectorAll("span")[1];
-      console.log(price);
+      total.innerHTML = price * element.value; 
      }
 
     
