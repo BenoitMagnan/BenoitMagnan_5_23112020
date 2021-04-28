@@ -76,6 +76,11 @@
       itemToRemove.remove();
     }
 
+    const checkLocastorage = JSON.parse(localStorage.getItem('items')); 
+    if (checkLocastorage.length < 1 ){
+      productHolder.innerHTML = "Votre panier est vide";
+    } else {
+
     window.addEventListener('load', () => {
       const items = JSON.parse(localStorage.getItem('items')); 
 
@@ -105,7 +110,8 @@
       }
 
       };
-  });
+    });
+  }
   </script>
 
 </body>
