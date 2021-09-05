@@ -59,16 +59,23 @@
         </div>
     </div>
   </div>
-  <div id="dismissTotal" class="container  my-4">
+
+  <div id="dismissTotal" class="container my-4">
     <div class="flex-row py-2 my-4 bg-primary rounded text-center">
         <div>
           <p class="col-6 my-auto ml-auto">Total : <span id="totalPanier"></span> €</p>
         </div>
     </div>
 
-      <form>
+      <form class="my-4 pb-4">
 
-        <div class="form-row" >
+        <div class="my-4">
+          <h2>Passer votre commande</h2>
+          <em>Veuillez renseigner vos informations personnelles dans le formulaire suivant.</em>
+        </div>
+
+        <div class="form-row ">
+
           <div class="form-group col-6">
             <input type="text" class="form-control" id="lastName" placeholder="Magnan"  pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
           </div>
@@ -123,8 +130,8 @@
 
         //A MODIFIER
         productHolder.innerHTML = "<theader>"
+                // + "<th>Produit</th>"
                 + "<th>Produit</th>"
-                + "<th class='d-none d-sm-block'>Photo</th>"
                 + "<th>Modèle</th>"
                 + "<th>Prix</th>"
                 + "<th>Retirer</th>"
@@ -134,10 +141,10 @@
           let newID = element.choice.replace(/\s/g, '');
 //A MODIFIER
           productHolder.innerHTML += "<tr id='" + element + "'>"
-            + "<td class='align-middle col-2'>" + element.name + "</td>"
-            + "<td class='align-middle col-3 d-none d-sm-inline'>" + "<img class='w-50 rounded shadow'src='" + element.imageUrl + "'></td>"
-            + "<td class='align-middle col-2" + newID + "'>" + element.choice + "</td>"
-            + "<td class='align-middle col-2'><span class='price'>" + element.price / 100 + "</span>€</td>"
+            // + "<td class='align-middle col-2'>" + element.name + "</td>"
+            + "<td class='align-middle col-4'>" + "<img class='w-50 rounded shadow'src='" + element.imageUrl + "'></td>"
+            + "<td class='align-middle col-6" + newID + "'>" + element.choice + "</td>"
+            + "<td class='align-middle col-4'><span class='price'>" + element.price / 100 + "</span>€</td>"
             + "<td class='align-middle col-2'><button class='text-danger removeItem' onclick='removeItem(this);'><i class='fas fa-trash'></i><button></td>"
           + "</tr>"
           ;
