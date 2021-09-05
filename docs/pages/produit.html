@@ -127,33 +127,22 @@
               
               const storeData = document.getElementById('storeData');
               
-              // COUILLE 
               let items = [];
-
+              
               if (localStorage.length > 0){
                 items = JSON.parse(localStorage.getItem('items'));
               }
-              console.log(items);
-
-              storeData.addEventListener('click', function(event){   
+              
+              storeData.addEventListener('click', function(event){
 
                 let object = {
+                  choice: productChoice.value,
                   name: response[index].name,
                   price: response[index].price,
                   id: response[index]._id,
-                  imageUrl: response[index].imageUrl,
-                  choice: productChoice.value
+                  imageUrl: response[index].imageUrl
                 };
-
-                console.log(items);
-                console.log(object);
-
-                // if (localStorage.length != 0){
-                //   let storedItems = (localStorage.getItem('items').slice(1,-1));
-                //   items.push(storedItems.replace("\'", ""));
-                //   console.log(storedItems);
-                // }
-
+                
                 items.push(object);
 
                 localStorage.setItem('items', JSON.stringify(items));
@@ -161,7 +150,6 @@
                 console.log(localStorage);
                 event.preventDefault();
               })
-              //COUILLE
           }
         }
         request.open('GET', url);

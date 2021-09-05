@@ -36,37 +36,43 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="row my-4 bg-primary rounded text-center ">
+  <div class="container px-4">
+    <div class="row my-4 bg-primary rounded text-center">
       <div id="navButton" class="col-12">
         <div id="mainTitle">
           <h1 class="my-4">Bienvenue sur Oricono</h1>
           <p>Choississez le catalogue que vous souhaitez afficher :</p>
         </div>
-          <ul class="navbar-nav flex-row mt-4">
+          <ul class="navbar-nav my-4 flex-row mt-4">
             <li class="nav-item col-4">
               <button id="teddies"><i class="icon-menu fas fa-paw"></i> <!--onclick="fetchTeddies())"-->
-                <h3 class="mt-2">Ours en peluche</h3>
-                <p><sub><em>On vous supplie d'adopter Garfunkel...</em></sub></p>
+                <div class="d-none d-lg-inline">
+                  <h3 class="mt-2">Ours en peluche</h3>
+                  <p><sub><em>On vous supplie d'adopter Garfunkel...</em></sub></p>
+                </div>
               </button>
             </li>
             <li class="nav-item col-4">
               <button id="cameras"><i class="icon-menu fas fa-camera-retro"></i> <!--onclick="fetchCameras()"-->
-                <h3 class="mt-2">Appareils photo</h3>
-                <p><sub><em>Des comme on en fait plus</em></sub></p>
+                <div class="d-none d-lg-inline">
+                  <h3 class="mt-2">Appareils photo</h3>
+                  <p><sub><em>Des comme on en fait plus</em></sub></p>
+                </div>
               </button>
             </li>
             <li class="nav-item col-4">
               <button id="furniture"><i class="icon-menu fas fa-chair"></i> <!--onclick="fetchFurniture()"-->
-                <h3 class="mt-2">Meubles</h3>
-                <p><sub><em>A l'ancienne !</em></sub></p>
+                <div class="d-none d-lg-inline">
+                  <h3 class="mt-2">Meubles</h3>
+                  <p><sub><em>A l'ancienne !</em></sub></p>
+                </div>
               </button>
             </li>
           </ul>
       </div>
     </div>
 
-    <div id="cardHolder" class="row">
+    <div id="cardHolder" class="row justify-content-center my-4">
     </div>
 
   </div>
@@ -101,10 +107,10 @@
                 + "<div class='card-body'>"
                   + "<h2>" + response[i].name + "</h2>"
                   + "<div class='img-container'>"
-                    + "<a class='stretched-link' href='pages/produit.html?page=teddies&index=" + i + "'><img class='col-8 mx-auto d-block' src='" + response[i].imageUrl + "' alt='" + response[i].description + "'></a>"
+                    + "<a class='stretched-link' href='pages/produit.html?page=teddies&index=" + i + "'><img class='col-12 mx-auto d-block' src='" + response[i].imageUrl + "' alt='" + response[i].description + "'></a>"
                   + "</div>"
-                  + "<p class='p-4 mt-4'>" + response[i].description + "</p>"
-                  + "<p class='p-4 text-right font-weight-bold font-italic'>" + response[i].price / 100 + " €</p>"
+                  // + "<p class='p-2'>" + response[i].description + "</p>"
+                  // + "<p class='p-4 text-right font-weight-bold font-italic'>" + response[i].price / 100 + " €</p>"
                   + "</div>"
                 + "</div>"
               + "</div>"
@@ -131,10 +137,10 @@
                 + "<div class='card-body'>"
                   + "<h2>" + response[i].name + "</h2>"
                   + "<div class='img-container'>"
-                    + "<a class='stretched-link' href='pages/produit.html?page=cameras&index=" + i + "'><img class='col-8 mx-auto d-block' src='" + response[i].imageUrl + "' alt='" + response[i].description + "'></a>"
+                    + "<a class='stretched-link' href='pages/produit.html?page=cameras&index=" + i + "'><img class='col-12 mx-auto d-block' src='" + response[i].imageUrl + "' alt='" + response[i].description + "'></a>"
                   + "</div>"
-                  + "<p class='p-4 mt-4'>" + response[i].description + "</p>"
-                  + "<p class='p-4 text-right font-weight-bold font-italic'>" + response[i].price / 100 + " €</p>"
+                  // + "<p class='p-4 mt-4'>" + response[i].description + "</p>"
+                  // + "<p class='p-4 text-right font-weight-bold font-italic'>" + response[i].price / 100 + " €</p>"
                   + "</div>"
                 + "</div>"
               + "</div>"
@@ -161,10 +167,10 @@
                 + "<div class='card-body'>"
                   + "<h2>" + response[i].name + "</h2>"
                   + "<div class='img-container'>"
-                    + "<a class='stretched-link' href='pages/produit.html?page=furniture&index=" + i + "'><img class='col-8 mx-auto d-block' src='" + response[i].imageUrl + "' alt='" + response[i].description + "'></a>"
+                    + "<a class='stretched-link' href='pages/produit.html?page=furniture&index=" + i + "'><img class='col-12 mx-auto d-block' src='" + response[i].imageUrl + "' alt='" + response[i].description + "'></a>"
                   + "</div>"
-                  + "<p class='p-4 mt-4'>" + response[i].description + "</p>"
-                  + "<p class='p-4 text-right font-weight-bold font-italic'>" + response[i].price / 100 + " €</p>"
+                  // + "<p class='p-4 mt-4'>" + response[i].description + "</p>"
+                  // + "<p class='p-4 text-right font-weight-bold font-italic'>" + response[i].price / 100 + " €</p>"
                   + "</div>"
                 + "</div>"
               + "</div>"

@@ -22,6 +22,7 @@
 </head>
 
 <body>
+
   <div class="bg-primary">
     <div class="container">
       <div class="row">
@@ -36,82 +37,151 @@
       </div>
     </div>
   </div>
+
   <div class="container">
     <div class="flex-row py-2 my-4 bg-primary rounded text-center">
         <div class="col-12">
           <table class="table my-4">
             <thead>
               <h3 class="my-4">Panier</h3>
+              <p id="empty"></p>
             </thead>
             <tbody id="productHolder">
-              <theader>
+              <!-- <theader>
                 <th>Produit</th>
                 <th>Photo</th>
                 <th>Modèle</th>
-                <th>Quantité</th>
                 <th>Prix</th>
-                <th>Total</th>
-                <th></th>
-              </theader>
+                <th>Retirer</th>
+              </theader> -->
             </tbody>
           </table>
-        </table>
         </div>
     </div>
   </div>
+  <div id="dismissTotal" class="container  my-4">
+    <div class="flex-row py-2 my-4 bg-primary rounded text-center">
+        <div>
+          <p class="col-6 my-auto ml-auto">Total : <span id="totalPanier"></span> €</p>
+        </div>
+    </div>
+
+      <form>
+
+        <div class="form-row" >
+          <div class="form-group col-6">
+            <input type="text" class="form-control" id="lastName" placeholder="Magnan"  pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
+          </div>
+          <div class="form-group col-6">
+            <input type="text" class="form-control" id="firstName" placeholder="Benoît" pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="email" class="form-control" id="email" placeholder="benoit.magnan@coderavecdesmoufles.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" id="adress" placeholder="112 rue des Moufles" pattern="[0-9]{1,6}[A-zÀ-ÿ'\s-]{2,50}" maxlength="200" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-10 col-8">
+            <input type="text" class="form-control" id="city" placeholder="Bar-le-duc" pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="200" required>
+          </div>
+          <div class="form-group col-sm-2 col-4">
+            <input type="text" class="form-control" id="codePostal" placeholder="5 chiffres"  pattern="[0-9]{5}" minlength="5" maxlength="5" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Commander</button>
+      </form>
+
+  </div>
   
-
   <script>
-    const productHolder = document.getElementById('productHolder');
-    
-    function total (element) {
-      const price = element.parentElement.parentElement.parentElement.querySelectorAll("span")[0].innerHTML;
-      const total = element.parentElement.parentElement.parentElement.querySelectorAll("span")[1];
-      total.innerHTML = price * element.value; 
-     }
+    const checkLocalstorage = JSON.parse(localStorage.getItem('items'));
 
-    
-     function removeItem(element) {
+    //RETIRE LA LIGNE HTML CONTENANT LES INFOS DE L'OBJET
+    function removeItem(element) {
       const itemToRemove = element.parentElement.parentElement;
-      itemToRemove.remove();
+      itemToRemove.remove(1);
     }
-
-    const checkLocastorage = JSON.parse(localStorage.getItem('items')); 
-    if (checkLocastorage.length < 1 ){
-      productHolder.innerHTML = "Votre panier est vide";
+    
+    //AFFICHE LA LIGNE PANIER VIDE SI LE LOCALSTORAGE EST VIDE
+    if (checkLocalstorage.length < 1 ){
+      empty.innerHTML = "Votre panier est vide";
+      productHolder.innerHTML = "";
+      dismissTotal.innerHTML = "";
     } else {
+      
+      //REMPLISSAGE DU PANIER LIGNE PAR LIGNE AU CHARGEMENT DE LA PAGE
+      window.addEventListener('load', () => {
 
-    window.addEventListener('load', () => {
-      const items = JSON.parse(localStorage.getItem('items')); 
+        const items = JSON.parse(localStorage.getItem('items'));
+        
 
-      for(i = 0; i < items.length; i++) {
-        productHolder.innerHTML += "<tr id='" + i + "'>"
-        + "<td class='align-middle '>" + items[i].name + "</td>"
-        + "<td class='align-middle col-2'>" + "<img class='w-75 rounded shadow'src='" + items[i].imageUrl + "'></td>"
-        + "<td class='align-middle'>" + items[i].choice + "</td>"
-        + "<td class='align-middle'><form><input onChange=total(this); class='form-control w-50 mx-auto quantity' type='number' min='1' max='100' value='1'></form></td>"
-        + "<td class='align-middle'><span>" + items[i].price / 100 + "</span>€</td>"
-        + "<td class='align-middle' id='" + items[i].randomId + "'><span></span></td>"
-        + "<td class='align-middle'><button class='text-danger removeItem' onclick='removeItem(this);'><i class='fas fa-trash'></i><button></td>"
-      + "</tr>"
-      ;
+        //A MODIFIER
+        productHolder.innerHTML = "<theader>"
+                + "<th>Produit</th>"
+                + "<th class='d-none d-sm-block'>Photo</th>"
+                + "<th>Modèle</th>"
+                + "<th>Prix</th>"
+                + "<th>Retirer</th>"
+              + "</theader>"
 
-      const removeItem = document.getElementsByClassName('removeItem');
+        items.forEach(element => {
+          let newID = element.choice.replace(/\s/g, '');
+//A MODIFIER
+          productHolder.innerHTML += "<tr id='" + element + "'>"
+            + "<td class='align-middle col-2'>" + element.name + "</td>"
+            + "<td class='align-middle col-3 d-none d-sm-inline'>" + "<img class='w-50 rounded shadow'src='" + element.imageUrl + "'></td>"
+            + "<td class='align-middle col-2" + newID + "'>" + element.choice + "</td>"
+            + "<td class='align-middle col-2'><span class='price'>" + element.price / 100 + "</span>€</td>"
+            + "<td class='align-middle col-2'><button class='text-danger removeItem' onclick='removeItem(this);'><i class='fas fa-trash'></i><button></td>"
+          + "</tr>"
+          ;
+          
+          //CALCUL DU TOTAL DU PANIER
+          const price = document.getElementsByClassName('price');
+          const totalPanier = document.getElementById('totalPanier');
 
-      for (let i = 0; i < removeItem.length; i++) {
-        removeItem[i].addEventListener("click", function() {
-          let items = JSON.parse(localStorage.getItem('items'));
-          // console.log(items)
-          // console.log(items[i]);
-          items.splice(items.indexOf(items[i]), 1);
-          localStorage.setItem('items', JSON.stringify(items));
-          // console.log(localStorage);
+          sum = 0;
+          for(i = 0; i < price.length; i++){
+            sum += parseInt(price[i].innerHTML);
+            totalPanier.innerHTML = sum;
+          }
+          
+          //RETIRER UN ELEMENT DU PANIER + UPDATE DU TOTAL DU PANIER
+          const removeItem = document.getElementsByClassName('removeItem');
+
+          for (i = 0; i < removeItem.length; i++) {
+            
+            removeItem[i].addEventListener("click", function() {
+            
+              //MISE A JOUR DU TOTAL
+              sum = 0;
+              for(i = 0; i < price.length; i++){
+                sum += parseInt(price[i].innerHTML);
+                totalPanier.innerHTML = sum;
+              }
+
+              //RETRAIT DE L'OBJET DANS LE LOCALSTORAGE
+              let items = JSON.parse(localStorage.getItem('items'));
+              items.splice(items.indexOf(items[i]), 1);
+              localStorage.setItem('items', JSON.stringify(items));
+                
+              //AFFICHAGE DU "PANIER VIDE" S'IL N'Y A PLUS D'ELEMENT DANS LE LOCALSTORAGE
+              if (items.length < 1) {
+                empty.innerHTML = "Votre panier est vide";
+                productHolder.innerHTML = "";
+                dismissTotal.innerHTML = "";
+              }
+            });
+          };          
         });
-      }
-
-      };
-    });
-  }
+      });
+    }
   </script>
 
 </body>
