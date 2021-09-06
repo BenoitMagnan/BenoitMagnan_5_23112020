@@ -67,7 +67,7 @@
         </div>
     </div>
 
-      <form class="my-4 pb-4">
+      <form class="my-4 pb-5">
 
         <div class="my-4">
           <h2>Passer votre commande</h2>
@@ -77,38 +77,39 @@
         <div class="form-row ">
 
           <div class="form-group col-6">
-            <input type="text" class="form-control" id="lastName" placeholder="Magnan"  pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
+            <input type="text" class="form-control" id="firstName" placeholder="Benoît" value="Benoît"  pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
           </div>
           <div class="form-group col-6">
-            <input type="text" class="form-control" id="firstName" placeholder="Benoît" pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
+            <input type="text" class="form-control" id="lastName" placeholder="Magnan"  value="Magnan" pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="50" required>
           </div>
+          
         </div>
 
         <div class="form-group">
-          <input type="email" class="form-control" id="email" placeholder="benoit.magnan@coderavecdesmoufles.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+          <input type="email" class="form-control" id="email" placeholder="benoit.magnan@coderavecdesmoufles.com" value="benoit.magnan@coderavecdesmoufles.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
         </div>
 
         <div class="form-group">
-          <input type="text" class="form-control" id="adress" placeholder="112 rue des Moufles" pattern="[0-9]{1,6}[A-zÀ-ÿ'\s-]{2,50}" maxlength="200" required>
+          <input type="text" class="form-control" id="adress" placeholder="112 rue des Moufles" value="112 rue des Moufles" pattern="[0-9]{1,6}[A-zÀ-ÿ'\s-]{2,50}" maxlength="200" required>
         </div>
 
         <div class="form-row">
           <div class="form-group col-sm-10 col-8">
-            <input type="text" class="form-control" id="city" placeholder="Bar-le-duc" pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="200" required>
+            <input type="text" class="form-control" id="city" placeholder="Bar-le-duc" value="Bar-le-duc" pattern="[A-zÀ-ÿ'\s-]{2,50}" maxlength="200" required>
           </div>
           <div class="form-group col-sm-2 col-4">
-            <input type="text" class="form-control" id="codePostal" placeholder="5 chiffres"  pattern="[0-9]{5}" minlength="5" maxlength="5" required>
+            <input type="text" class="form-control" id="codePostal" placeholder="5 chiffres" value="91540" pattern="[0-9]{5}" minlength="5" maxlength="5" required>
           </div>
         </div>
         
-        <button type="submit" class="btn btn-primary">Commander</button>
+        <button type="submit" id="Submit" class="submit float-right">Commander</button>
       </form>
 
-  </div>
-  
-  <script>
-    const checkLocalstorage = JSON.parse(localStorage.getItem('items'));
+      <div id="result"></div>
 
+  </div>
+
+  <script>
     //RETIRE LA LIGNE HTML CONTENANT LES INFOS DE L'OBJET
     function removeItem(element) {
       const itemToRemove = element.parentElement.parentElement;
@@ -116,7 +117,7 @@
     }
     
     //AFFICHE LA LIGNE PANIER VIDE SI LE LOCALSTORAGE EST VIDE
-    if (checkLocalstorage.length < 1 ){
+    if (localStorage.length < 1 ){
       empty.innerHTML = "Votre panier est vide";
       productHolder.innerHTML = "";
       dismissTotal.innerHTML = "";
@@ -128,24 +129,23 @@
         const items = JSON.parse(localStorage.getItem('items'));
         
 
-        //A MODIFIER
         productHolder.innerHTML = "<theader>"
                 // + "<th>Produit</th>"
-                + "<th>Produit</th>"
                 + "<th>Modèle</th>"
+                + "<th>Produit</th>"
                 + "<th>Prix</th>"
                 + "<th>Retirer</th>"
               + "</theader>"
 
         items.forEach(element => {
           let newID = element.choice.replace(/\s/g, '');
-//A MODIFIER
+          
           productHolder.innerHTML += "<tr id='" + element + "'>"
             // + "<td class='align-middle col-2'>" + element.name + "</td>"
-            + "<td class='align-middle col-4'>" + "<img class='w-50 rounded shadow'src='" + element.imageUrl + "'></td>"
-            + "<td class='align-middle col-6" + newID + "'>" + element.choice + "</td>"
-            + "<td class='align-middle col-4'><span class='price'>" + element.price / 100 + "</span>€</td>"
-            + "<td class='align-middle col-2'><button class='text-danger removeItem' onclick='removeItem(this);'><i class='fas fa-trash'></i><button></td>"
+            + "<td class='align-middle col-2" + newID + "'>" + element.choice + "</td>"
+            + "<td class='align-middle col-4'>" + "<img class='mw-100 rounded shadow'src='" + element.imageUrl + "'></td>"
+            + "<td class='align-middle col-3'><span class='price'>" + element.price / 100 + "</span>€</td>"
+            + "<td class='align-middle col-3'><button class='removeItem ' onclick='removeItem(this);'><i class='fas fa-trash'></i></button></td>"
           + "</tr>"
           ;
           
@@ -187,6 +187,41 @@
             });
           };          
         });
+
+        document.getElementById("Submit").addEventListener('click', addContact);
+
+        function addContact (event) {
+          event.preventDefault();
+          let contact = {
+            firstName : document.getElementById('firstName').value,
+            lastName : document.getElementById('lastName').value,
+            adress : document.getElementById('adress').value,
+            city : document.getElementById('codePostal').value + " " + document.getElementById('city').value,
+            email : document.getElementById('email').value,
+            products : items,
+            totalPanier : totalPanier.innerHTML
+          }
+          console.log(contact);
+          fetch("https://mockbin.com/request", { //adresse de test de requête 
+            method: "POST",
+            headers: {
+              'Accept': 'application/json', 
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+          })
+          .then(function(resultat) {
+            if (resultat.ok) {
+              return resultat.json();
+            }
+          }).then(function(value) {
+              localStorage.clear();
+              localStorage.setItem("commande", value.postData.text);
+              console.log(localStorage);
+              window.location.href="commande.html";
+            });
+          }
+
       });
     }
   </script>

@@ -2,11 +2,18 @@ i {
     font-size: 1.5em;
     color: white;
     background: linear-gradient(to right bottom, $primary-content, $secondary-content);
-    border-radius: 15%;
+    border-radius: 0.25em;
     padding: 0.5em;
 }
 
 button {
     border: none;
     background-color: transparent;
+}
+
+.submit {
+    color: white;
+    background: linear-gradient(to right bottom, $primary-content, $secondary-content);
+    border-radius: 0.25em;
+    padding: 0.5em;
 }

@@ -1,0 +1,22 @@
+{
+  "name": "benoitmagnan_5_23112020",
+  "version": "1.0.0",
+  "description": "BenoitMagnan_5_23112020",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "sass": "sass --watch ./scss/style.scss:./css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Perceaurore/BenoitMagnan_5_23112020.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Perceaurore/BenoitMagnan_5_23112020/issues"
+  },
+  "homepage": "https://github.com/Perceaurore/BenoitMagnan_5_23112020#readme"
+}
