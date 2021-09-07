@@ -39,11 +39,8 @@
   </div>
   
   <div class="container">
-    <div class="flex-row py-2 my-4 bg-primary rounded text-center">
-        <div class="col-12">
-            <h1>Merci pour votre commande</h1>
-        </div>
-        <div id="result"></div>
+    <div class="flex-row my-4 bg-primary rounded text-center">
+        <div id="result" class="col-12 p-4"></div>
     </div>
   </div>
 
@@ -54,16 +51,16 @@
     window.addEventListener('load', () => {
         const commande = JSON.parse(localStorage.getItem("commande"));
         console.log(commande);
-        document.getElementById("result").innerHTML = "<div>La commande n° NUMERO DE COMMANDE A AJOUTER vous sera envoyé à l'adresse suivante :</div>"
+        document.getElementById("result").innerHTML = "<h1 class='my-4'>Merci pour votre commande</h1>"
+        + "<div class='my-4'><p>Un mail de confirmation vous a été envoyé à l'adresse suivante :</p></div>"
+        + "<div class='my-2'>" + commande['email'] + "</div>"
+        + "<div class='my-4'>La commande n°" + commande['orderId'] + " vous sera envoyé à l'adresse suivante :</div>"
         + "<div>" + commande['firstName'] + " " + commande['lastName'] + "</div>"
         + "<div>" + commande['adress'] + "</div>"
         + "<div>" + commande['city'] + "</div>"
-        + "<div" + commande['email'] + "</div>"//value.postData.text;
-        + 'Rappel de votre commande : ' + commande['totalPanier'] + " €";
+        + "<div class='my-4'>Rappel de votre commande : " + commande['totalPanier'] + " €";
         localStorage.clear();
     });
-
-    
   </script>
 
 </body>

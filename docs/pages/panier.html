@@ -199,7 +199,8 @@
             city : document.getElementById('codePostal').value + " " + document.getElementById('city').value,
             email : document.getElementById('email').value,
             products : items,
-            totalPanier : totalPanier.innerHTML
+            totalPanier : totalPanier.innerHTML,
+            orderId : Date.now() + "-" + Math.floor(Math.random() * 100000) + "-" + document.getElementById('lastName').value
           }
           console.log(contact);
           fetch("https://mockbin.com/request", { //adresse de test de requête 
