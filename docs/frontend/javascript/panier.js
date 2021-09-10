@@ -248,6 +248,7 @@ function removeItem(element) {
     function inputFilledChecker (event) {
         event.preventDefault();  
         let inputFilled = true;
+
         document.getElementById('formToCheck').querySelectorAll("[required]").forEach(function(input){
             if (!input.value) {
               inputFilled = false;
@@ -255,10 +256,12 @@ function removeItem(element) {
             if (!inputFilled) {
               document.getElementById('error').innerHTML = '<sub>* Veuillez remplir tous les champs</sub>'
             } else {
-                addContact(event);
-                disableSubmit(false);
-          }
-          
+              return true;
+            }
         })
+        if (inputFilled == true){
+          addContact(event);
+          disableSubmit(false);
+        }
     }}
   });
