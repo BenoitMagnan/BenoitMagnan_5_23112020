@@ -12,7 +12,6 @@
   <!--LIEN DE CONNEXION VERS FONTAWESOME-->
   <link rel="preconnect" href="https://fonts.gstatic.com"> 
   <script src="https://kit.fontawesome.com/637b694283.js" crossorigin="anonymous"></script>
-  <script src="../javascript/javascript.js"></script>
   <!---->
   
 
@@ -40,7 +39,10 @@
   
   <div class="container">
     <div class="flex-row my-4 bg-primary rounded text-center">
-        <div id="result" class="col-12 p-4"></div>
+        <div id="result" class="col-12 p-4">
+          <h1>404 not found</h1>
+          <p>Veuillez passer une commande pour pouvoir afficher cette page.</p>
+        </div>
     </div>
   </div>
 
@@ -49,16 +51,18 @@
   <script>
       //REMPLISSAGE DU PANIER LIGNE PAR LIGNE AU CHARGEMENT DE LA PAGE
     window.addEventListener('load', () => {
-        const commande = JSON.parse(localStorage.getItem("commande"));
-        console.log(commande);
+        const orderId = localStorage.getItem("orderId");
+        const totalPanier = localStorage.getItem("totalPanier");
+        const contact = JSON.parse(localStorage.getItem("contact"));
+
         document.getElementById("result").innerHTML = "<h1 class='my-4'>Merci pour votre commande</h1>"
         + "<div class='my-4'><p>Un mail de confirmation vous a été envoyé à l'adresse suivante :</p></div>"
-        + "<div class='my-2'>" + commande['email'] + "</div>"
-        + "<div class='my-4'>La commande n°" + commande['orderId'] + " vous sera envoyé à l'adresse suivante :</div>"
-        + "<div>" + commande['firstName'] + " " + commande['lastName'] + "</div>"
-        + "<div>" + commande['adress'] + "</div>"
-        + "<div>" + commande['city'] + "</div>"
-        + "<div class='my-4'>Rappel de votre commande : " + commande['totalPanier'] + " €";
+        + "<div class='my-2'>" + contact.email + "</div>"
+        + "<div class='my-4'>La commande n°" + orderId + " vous sera envoyé à l'adresse suivante :</div>"
+        + "<div>" + contact.firstName + " " + contact['lastName'] + "</div>"
+        + "<div>" + contact.address + "</div>"
+        + "<div>" + contact.city + "</div>"
+        + "<div class='my-4'>Rappel de votre commande : " + totalPanier + " €";
         localStorage.clear();
     });
   </script>
