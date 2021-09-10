@@ -7,13 +7,6 @@ function removeItem(element) {
   itemToRemove.remove(1);
 }
 
-//AFFICHE LA LIGNE PANIER VIDE SI LE LOCALSTORAGE EST VIDE
-// if (items < 1 ){
-//     empty.innerHTML = "Votre panier est vide";
-//     productHolder.innerHTML = "";
-//     dismissTotal.innerHTML = "";
-// } else {
-  
   //REMPLISSAGE DU PANIER LIGNE PAR LIGNE AU CHARGEMENT DE LA PAGE
   window.addEventListener('load', () => {    
     if (items < 1 ){
@@ -22,58 +15,16 @@ function removeItem(element) {
         dismissTotal.innerHTML = "";
     } else {
 
+    document.getElementById('formToCheck').querySelectorAll("[required]").forEach(function(input){
+      input.value = "";
+    });
+
     productHolder.innerHTML = "<theader>"
-            // + "<th>Produit</th>"
             + "<th>Modèle</th>"
             + "<th>Produit</th>"
             + "<th>Prix</th>"
             + "<th>Retirer</th>"
           + "</theader>"
-
-    // dismissTotal.innerHTML = "<div class='flex-row py-2 my-4 bg-primary rounded text-center'>"
-    //         + "<div>"
-    //             + "<p class='col-6 my-auto ml-auto'>Total : <span id='totalPanier'></span> €</p>"
-    //         + "</div>"
-    //     + "</div>"
-    // + "<div class='my-4'>"
-    //   + "<h2>Passer votre commande</h2>"
-    //   + "<em>Veuillez renseigner vos informations personnelles dans le formulaire suivant.</em>"
-    // + "</div>"
-
-    // + "<form id='formToCheck' class='my-4 pb-5'>"
-    //   + "<div class='form-row'>"
-          
-    //     + "<div class='form-group col-6'>"
-    //         "<input type='text' class='form-control' id='firstName' placeholder='Prénom' maxlength='50' required />"
-    //         "<div id='firstNameValidation'></div>"
-    //     + "</div>"
-  
-    //     + "<div class='form-group col-6'>"
-    //         + "<input type='text' class='form-control' id='lastName' placeholder='Nom' maxlength='50' required />"
-    //         + "<div id='lastNameValidation'></div>"
-    //     + "</div>"
-  
-    // +"<div class='form-group col-6'>"
-    //     + "<input type='text' class='form-control' id='address' placeholder='Adresse' maxlength='50' required />"
-    //     + "<div id='addressValidation'></div>"
-    // +"</div>"
-  
-    // +"<div class='form-group col-6'>"
-    //     + "<input type='text' class='form-control' id='city' placeholder='Ville' maxlength='50' required />"
-    //     + "<div id='cityValidation'></div>"
-    // +"</div>"
-  
-    // +"<div class='form-group col-12'>"
-    //     + "<input type='email' class='form-control' id='email' placeholder='Email' required />"
-    //     + "<div id='emailValidation'></div>"
-    // + "</div>"
-
-    // + "</div>"
-      
-    // + "<button type='submit'  id='Submit' class='submit float-right' disabled='true'>Commander</button>"
-    // + "<div id='error'></div>"
-
-    // + "</form>";
 
     items.forEach(element => {
       let newID = element.choice.replace(/\s/g, '');
