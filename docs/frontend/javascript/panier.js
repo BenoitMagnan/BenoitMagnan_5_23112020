@@ -143,7 +143,7 @@ function removeItem(element) {
     });
 
     //RENVOIE LES INFORMATIONS AU BACKEND
-    function addContact() {
+    function addContact(event) {
       event.preventDefault();     
       localStorage.setItem("totalPanier", totalPanier.innerHTML);
 
