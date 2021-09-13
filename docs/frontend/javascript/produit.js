@@ -1,41 +1,71 @@
-let cardHolder = document.getElementById('cardHolder');
-
+//RECUPERATION DES PARAMETRES PASSES DANS L'URL DEPUIS INDEX.JS AU CHARGEMENT DE LA PAGE
+const cardHolder = document.getElementById('cardHolder');
   
 window.addEventListener('load', () => {
     const params = (new URL(document.location)).searchParams;
     const index = params.get('index');
+    // console.log(index);
     const page = params.get('page');
+    // console.log(page);
     switch(page) {
       case 'teddies':
         fetchProduct(index, page);
+        // console.log(index);
+        // console.log(page);
         break;
       case 'cameras' :
         fetchProduct(index, page);
+        // console.log(index);
+        // console.log(page);
         break;
       case 'furniture' :
         fetchProduct(index, page);
+        // console.log(index);
+        // console.log(page);
         break;
+      default:
+        cardHolder.innerHTML += "<h1>Le paramètre URL : <mark>'" + page + "'</mark> ne correspond à aucune base de données.</h1>"
+        + "<div><p>* Veillez à ce que ce paramètre corresponde à 'teddies', 'cameras' ou 'furniture'.</p></div>";
     }
 })
+
+
+//RECUPERATION DES DONNEES DE L'API EN FONCTION DE L'ARGUMENT 'PAGE'
 const request = new XMLHttpRequest();
 
 function fetchProduct(index, page){
     const url = 'http://localhost:3000/api/' + page
+    // console.log(url);
+
     request.onreadystatechange = function(){
       if(this.readyState == XMLHttpRequest.DONE && this.status == 200){
           const response =  JSON.parse(this.responseText);
+          // console.log(response);
           let product;
+
           switch(page) {
             case 'teddies':
               product = response[index].colors;
+              // console.log(product);
               break;
             case 'cameras' :
               product = response[index].lenses;
+              // console.log(product);
               break;
             case 'furniture' :
               product = response[index].varnish;
+              // console.log(product);
             break;
           }
+
+          // TEST DES DONNEES EN FONCTION DE L'INDEX : CHAMPS [0-1-2-3-4] A MODIFIER
+          // console.log(response[0].name);
+          // console.log(response[0].imageUrl);
+          // console.log(response[0].description);
+          // console.log(response[0].price);
+          // console.log(response[0]._id);
+          //console.log(response[0].colors);
+
           cardHolder.innerHTML +=
           "<div class='py-2 text-justify '>"
               + "<div class='card h-100 shadow'>"
@@ -62,20 +92,26 @@ function fetchProduct(index, page){
             + "</div>"
             + "</div>"
           + "</div>";
+          
+
           const productChoice = document.getElementById(response[index]._id);
        
           for (i = 0; i < product.length; i++){
             productChoice.innerHTML += "<option>" + product[i] + "</option>";
+            // console.log(product[i]);
           }
           
-          const storeData = document.getElementById('storeData');
-          
           let items = [];
+          // console.log(items);
+          // console.log(localStorage);
           
           if (localStorage.length > 0){
             items = JSON.parse(localStorage.getItem('items'));
           }
+          // console.log(items);
           
+          const storeData = document.getElementById('storeData');
+
           storeData.addEventListener('click', function(event){
             let object = {
               choice: productChoice.value,
@@ -84,9 +120,11 @@ function fetchProduct(index, page){
               id: response[index]._id,
               imageUrl: response[index].imageUrl
             };
+            // console.log(object);
             items.push(object);
+            // console.log(items);
             localStorage.setItem('items', JSON.stringify(items));
-            console.log(localStorage);
+            // console.log(localStorage);
             event.preventDefault();
           })
       }
