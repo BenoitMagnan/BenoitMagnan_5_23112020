@@ -93,7 +93,6 @@ function fetchProduct(index, page){
             + "</div>"
           + "</div>";
           
-
           const productChoice = document.getElementById(response[index]._id);
        
           for (i = 0; i < product.length; i++){

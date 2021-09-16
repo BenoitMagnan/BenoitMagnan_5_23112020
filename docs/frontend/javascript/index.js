@@ -1,5 +1,5 @@
-const cardHolder = document.getElementById('cardHolder');
 const mainTitle = document.getElementById('mainTitle');
+const cardHolder = document.getElementById('cardHolder');
 
 const request = new XMLHttpRequest();
 

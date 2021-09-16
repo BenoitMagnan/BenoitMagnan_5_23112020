@@ -12,7 +12,7 @@ function removeItem(element) {
 //REMPLISSAGE DU PANIER LIGNE PAR LIGNE AU CHARGEMENT DE LA PAGE
 window.addEventListener('load', () => {    
 
-  //INITIALISE LA PAGE AVEC DES CHAMPS VIDES POUR LES INPUTS? PRODUCTHOLDER ET DISMISSTOTAL. AJOUTE "VOTRE PANIER EST VIDE" DANS EMPTY
+  //INITIALISE LA PAGE AVEC DES CHAMPS VIDES POUR LES INPUTS PRODUCTHOLDER ET DISMISSTOTAL. AJOUTE "VOTRE PANIER EST VIDE" DANS EMPTY
   if (items < 1 ){
       empty.innerHTML = "Votre panier est vide";
       productHolder.innerHTML = "";
@@ -90,10 +90,10 @@ window.addEventListener('load', () => {
   function disableSubmit(disabled) {
       if (disabled) {
           document.getElementById("Submit").setAttribute("disabled", true);
-          console.log(document.getElementById("Submit").attributes['disabled']);
+          // console.log(document.getElementById("Submit").attributes['disabled']);
       } else {
           document.getElementById("Submit").removeAttribute("disabled");
-          console.log(document.getElementById("Submit").attributes['disabled']);
+          // console.log(document.getElementById("Submit").attributes['disabled']);
       }
   }
   //REGEXPRs POUR CHAQUE INPUTs DU FORMULAIRE
@@ -144,6 +144,26 @@ window.addEventListener('load', () => {
       }
   });
 
+  //VERRIFIE QUE TOUTES LES INPUTS ONT ETE REMPLIES
+  document.getElementById("Submit").addEventListener('click', inputFilledChecker);
+  function inputFilledChecker (event) {
+      event.preventDefault();  
+      let inputFilled = true;
+      document.getElementById('formToCheck').querySelectorAll("[required]").forEach(function(input){
+          if (!input.value) {
+            inputFilled = false;
+          }
+          if (!inputFilled) {
+            document.getElementById('error').innerHTML = '<sub>* Veuillez remplir tous les champs</sub>'
+          } else {
+            return true;
+          }
+      })
+      if (inputFilled == true){
+        addContact(event);
+        disableSubmit(false);
+      }
+  }}
 
   //RENVOIE LES INFORMATIONS AU BACKEND
   function addContact(event) {
@@ -190,26 +210,4 @@ window.addEventListener('load', () => {
     };
     post(send);
   }
-
-
-  //VERRIFIE QUE TOUTES LES INPUTS ONT ETE REMPLIES
-  document.getElementById("Submit").addEventListener('click', inputFilledChecker);
-  function inputFilledChecker (event) {
-      event.preventDefault();  
-      let inputFilled = true;
-      document.getElementById('formToCheck').querySelectorAll("[required]").forEach(function(input){
-          if (!input.value) {
-            inputFilled = false;
-          }
-          if (!inputFilled) {
-            document.getElementById('error').innerHTML = '<sub>* Veuillez remplir tous les champs</sub>'
-          } else {
-            return true;
-          }
-      })
-      if (inputFilled == true){
-        addContact(event);
-        disableSubmit(false);
-      }
-  }}
 });
